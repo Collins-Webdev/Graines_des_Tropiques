@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/logo.png">
+        <title>Les Graines Du Tropique</title>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+        <link rel="stylesheet" href="style.css">
+        <style>
+            /* Style for the notification */
+            #notification {
+              display: none;
+              position: fixed;
+              bottom: 20px;
+              right: 20px;
+              padding: 10px 20px;
+              background-color: #333;
+              color: #fff;
+              border-radius: 4px;
+              z-index: 9999;
+            }
+
+            .modal-container {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background-color: rgba(0, 0, 0, 0.5);
+                z-index: 9999;
+            }
+        
+            .modal-content {
+                background-color: #fff;
+                border-radius: 8px;
+                padding: 20px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                font-size: 16px;
+                max-width: 300px;
+                text-align: center;
+            }
+        
+            .success {
+                background-color: #75B55B;
+                color: #fff;
+            }
+        
+            .error {
+                background-color: #E55353;
+                color: #fff;
+            }
+          </style>
+
+
+
+
+
+
+
+<!-- Add this script section in the <head> tag of your sproduct1.html file -->
+  <script>
+    // Function to retrieve the product data from the shop.php page
+    function getShopProducts() {
+      // Replace 'shop.php' with the correct URL of the shop.php page
+      const shopPageURL = 'shop.php';
+  
+      // Fetch the shop.php page and parse the response as text
+      return fetch(shopPageURL)
+        .then((response) => response.text())
+        .then((html) => {
+          const parser = new DOMParser();
+          const shopPage = parser.parseFromString(html, 'text/html');
+  
+          // Get the product data from the 'fred' div on the shop.php page
+          const products = [];
+          const productElements = shopPage.querySelectorAll('#fred .pro');
+          productElements.forEach((productElement) => {
+            const productImage = productElement.querySelector('img').getAttribute('src');
+            const productBrand = productElement.querySelector('.des span').textContent;
+            const productName = productElement.querySelector('.des h5').textContent;
+            const productPrice = productElement.querySelector('.des h4').textContent;
+  
+            // Add the product data to the 'products' array
+            products.push({
+              image: productImage,
+              brand: productBrand,
+              name: productName,
+              price: productPrice,
+            });
+          });
+  
+          return products;
+        });
+    }
+  
+    // Function to randomly select items from an array
+    function getRandomItems(array, count) {
+      const shuffled = array.sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
+    }
+  
+    // Function to display the randomly selected products
+    function displayRandomProducts(products) {
+      const proContainer = document.querySelector('#product1 .pro-container');
+      proContainer.innerHTML = '';
+  
+      products.forEach((product) => {
+        const html = `
+          <div class="pro">
+            <img src="${product.image}" alt="">
+            <div class="des">
+              <span>${product.brand}</span>
+              <h5>${product.name}</h5>
+              <div class="star">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </div>
+              <h4>${product.price}</h4>
+            </div>
+            <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+          </div>
+        `;
+        proContainer.innerHTML += html;
+      });
+    }
+  
+    // Get the selected products from shop.php and display them in sproduct1.html
+    getShopProducts()
+      .then((shopProducts) => {
+        // Select four random products
+        const randomProducts = getRandomItems(shopProducts, 4);
+  
+        // Display the randomly selected products
+        displayRandomProducts(randomProducts);
+      })
+      .catch((error) => {
+        console.error('Error fetching shop products:', error);
+      });
+  </script>
+  
+
+
+    </head>
+
+    <body>
+
+      <section id="header">
+        <a href="#"> <img src="img/logo.png" class="logo" alt="logo" width="20%" height="5%"> </a>
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a class="active" href="shop.php">Boutique</a></li>
+                <li><a href="blog.php">Blog</a></li>
+                <li><a href="about.html">À&nbsppropos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li id="lg-bag"><a href="cart1.html"><i class="far fa-shopping-bag"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart1.html"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+
+    </section>
+        <section id="prodetails" class="section-p1">
+            <div class="single-pro-image">
+                <img src="" width="100%" id="MainImg" alt="">
+                <div class="small-img-group">
+                  <!-- <div class="small-img-col">
+                      <img src="img/products/f1.jpg" width="100%" class="small-img" alt="">
+                  </div>
+                  <div class="small-img-col">
+                      <img src="img/products/f2.jpg" width="100%" class="small-img" alt="zerd">
+                  </div>
+                  <div class="small-img-col">
+                      <img src="img/products/f3.jpg" width="100%" class="small-img" alt="zerd">
+                  </div>
+                  <div class="small-img-col">
+                      <img src="img/products/f4.jpg" width="100%" class="small-img" alt="zerd">
+                  </div> -->
+              </div>
+                </div>
+            </div>
+            <div class="single-pro-details">
+                <h6> Boutique / Produit </h6>
+                <h4></h4>
+                <h2></h2>
+                <input type="number" id="quantité" placeholder="Quantité">
+                <button class="normal" id="ajouterProduit">Ajouter au panier</button>
+                <h4>Détails du produits</h4>
+                <span></span>
+                
+            </div>
+        </section>
+
+        <section id="product1" class="section-p1">
+            <h2>Ceci pourait vous plaire</h2>
+            <p>Nos sugestion de produit personalisés</p>
+            <div class="pro-container">
+              
+            </div>
+        </section>
+
+        <section id="newsletter" class="section-p1 section-m1">
+          <div class="newstext">
+              <h4>INSCRIVEZ-VOUS À NOTRE NEWSLETTER ! </h4>
+              <p>Pour recevoir nos dernieres nouvelles et <span>offres spéciaux.</span></p>
+          </div>
+          <div class="form">
+              <input type="text" placeholder="Votre adresse e-mail" name="" class="emailClient">
+              <button class="normal butSaveEmail">S'inscrire</button>
+          </div>
+      </section>
+
+      <footer class="section-p1">
+          <div class="col">
+              <img class="logo" src="img/logo.png" alt="logo" width="10%">
+              <h4>Contact</h4>
+              <p><strong> Adresse : </strong> Agla Petit-Chateau, Rue Kangloè, Cotonou, Bénin </p>
+              <p><strong> Tél : </strong> (+229) 12 34 56 78 / (+229) 87 65 43 21 </p>
+              <p><strong> Heures : </strong> 10:00 - 18:00, Lundi - Samedi </p>
+              <div class="follow">
+                  <h4>Nous Suivre</h4>
+                  <div class="icon">
+                      <i class="fab fa-facebook-f"></i>
+                      <i class="fab fa-twitter"></i>
+                      <i class="fab fa-instagram"></i>
+                      <i class="fab fa-pinterest-p"></i>
+                      <i class="fab fa-youtube"></i>
+                  </div>
+              </div>
+          </div>
+          <div class="col">
+              <h4>A propos</h4>
+              <a href="about.html">Qui somme nous ?</a>
+              <a href="#">Informations de livraison</a>
+              <a href="#">Mention Légale</a>
+              <a href="#">Conditions Générales</a>
+              <a href="contact.html">Nous Contacter</a>
+          </div>
+          <div class="col">
+              <h4>Mon compte</h4>
+              <a href="admin/authentification.php">Se connecter</a>
+              <a href="cart1.html">Panier</a>
+              <a href="#">Suivre ma commande</a>
+              <a href="contact.html">Aide</a>
+          </div>
+          <div class="col install">
+              <h4>Télécharger l'application</h4>
+              <p>De Google Play ou d'App Store</p>
+              <div class="row">
+                  <img src="img/pay/app.jpg" alt="">
+                  <img src="img/pay/play.jpg" alt="">
+              </div>
+              <p>Terminal de paiement sécurisé</p>
+              <img src="img/pay/pay.png" alt="">
+          </div>
+          <div class="copyright">
+              <p> © 2023, Les Graines Du Tropiques, Tous droits résérvés </p>
+          </div>
+      </footer>
+        
+
+       <script>
+
+
+
+// Retrieve the stored product details from sessionStorage
+const selectedProductImage = sessionStorage.getItem('selectedProductImage');
+const selectedProductTitle = sessionStorage.getItem('selectedProductTitle');
+const selectedProductPrice = sessionStorage.getItem('selectedProductPrice');
+const selectedProductDescription = sessionStorage.getItem('selectedProductDescription');
+
+// Populate the elements in the sproduct1.html page with the retrieved product details
+const productImageElement = document.getElementById('MainImg');
+const productTitleElement = document.querySelector('#prodetails .single-pro-details h4');
+const productPriceElement = document.querySelector('#prodetails .single-pro-details h2');
+const productDescriptionElement = document.querySelector('#prodetails .single-pro-details span');
+
+productImageElement.setAttribute('src', selectedProductImage);
+productTitleElement.textContent = selectedProductTitle;
+productPriceElement.textContent = selectedProductPrice;
+productDescriptionElement.textContent = selectedProductDescription;
+
+ // Function to show a notification when the product is added to the cart
+ function showNotification() {
+    const notification = document.getElementById('notification');
+    notification.style.display = 'block';
+    setTimeout(() => {
+      notification.style.display = 'none';
+    }, 2000); // Notification will disappear after 2 seconds
+  }
+// Function to retrieve the cart data from sessionStorage or create an empty cart
+function getCartData() {
+    const cartData = JSON.parse(sessionStorage.getItem('cartData'));
+    return cartData ? cartData : [];
+  }
+
+  // Function to save the cart data in sessionStorage
+  function saveCartData(cartData) {
+    sessionStorage.setItem('cartData', JSON.stringify(cartData));
+  }
+
+  // Get the "Ajouter au panier" button and the "Quantité" input element
+  const addToCartButton = document.getElementById('ajouterProduit');
+  const quantityInput = document.getElementById('quantité');
+
+  // Add a click event listener to the "Ajouter au panier" button
+  addToCartButton.addEventListener('click', () => {
+    // Get the selected product's image source, title, price, and quantity
+    const imageSrc = document.getElementById('MainImg').getAttribute('src');
+    const title = document.querySelector('#prodetails .single-pro-details h4').textContent;
+    const price = document.querySelector('#prodetails .single-pro-details h2').textContent;
+    const quantity = quantityInput.value;
+
+    // Calculate the subtotal for the product
+  const subtotal = parseFloat(price) * parseInt(quantity);
+
+    // Create an object with the product details
+    const product = {
+      imageSrc: imageSrc,
+      title: title,
+      price: price,
+      quantity: quantity,
+      subtotal: `${subtotal.toFixed(2)}`, // Format subtotal with € symbol and two decimal places
+    };
+
+    // Get the existing cart data or create an empty array
+    const cartData = getCartData();
+
+    // Add the new product to the cart data
+    cartData.push(product);
+
+    // Save the updated cart data in sessionStorage
+    saveCartData(cartData);
+
+   // Show the notification
+   showNotification();
+
+//    window.location.href = 'shop.php';   
+
+  });
+
+  
+ // Function to randomly select items from an array
+ function getRandomItems(array, count) {
+    const shuffled = array.sort(() => 0.5 - Math.random());
+    return shuffled.slice(0, count);
+  }
+
+  // Function to display the randomly selected products
+  function displayRandomProducts(products) {
+    const proContainer = document.querySelector('#product1 .pro-container');
+    proContainer.innerHTML = '';
+
+    products.forEach((product) => {
+      // Add 'FCFA' to the price
+    const priceWithCurrency = `${product.price} FCFA`;
+      const html = `
+        <div class="pro">
+          <img src="${product.image}" alt="">
+          <div class="des">
+            <span>${product.brand}</span>
+            <h5>${product.name}</h5>
+            <div class="star">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </div>
+            <h4>${product.price}</h4>
+          </div>
+          <a href="#"><i class="fal fa-shopping-cart cart"></i></a>
+        </div>
+      `;
+      proContainer.innerHTML += html;
+    });
+  }
+
+  // Retrieve the product data from the shop.php page
+  const shopProducts = [
+    // Add the product data from the shop.php page here
+    // Make sure to include all products and their details
+  ];
+
+  // Select four random products
+  const randomProducts = getRandomItems(shopProducts, 4);
+
+  // Display the randomly selected products
+  displayRandomProducts(randomProducts);
+
+
+
+
+
+
+
+  const bar = document.getElementById('bar');
+const close = document.getElementById('close');
+const nav = document.getElementById('navbar');
+const emailInput = document.querySelector('.emailClient');
+const saveEmailBtn = document.querySelector('.butSaveEmail');
+
+if (bar) {
+    bar.addEventListener('click', () => {
+        nav.classList.add('active');
+    });
+}
+
+if (close) {
+    close.addEventListener('click', () => {
+        nav.classList.remove('active');
+    });
+}
+
+// Fonction pour afficher la fenêtre modale stylisée avec le message
+function showStyledPopupMessage(message, isSuccess) {
+    const modalContainer = document.createElement('div');
+    modalContainer.className = 'modal-container';
+    
+    const modalContent = document.createElement('div');
+    modalContent.className = isSuccess ? 'modal-content success' : 'modal-content error';
+    modalContent.textContent = message;
+    
+    modalContainer.appendChild(modalContent);
+    document.body.appendChild(modalContainer);
+
+    setTimeout(() => {
+        document.body.removeChild(modalContainer);
+    }, 1500); // Supprime le message après 3 secondes
+}
+
+// Ajouter l'événement click au bouton "S'inscrire"
+if (saveEmailBtn) {
+    saveEmailBtn.addEventListener('click', () => {
+        const email = emailInput.value.trim();
+        if (email !== '') {
+            // Envoi de la demande au serveur pour enregistrer l'e-mail
+            fetch('save_email.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: `email=${email}`
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'success') {
+                    showStyledPopupMessage('Adresse e-mail enregistrée avec succès !', true);
+                } else if (data === 'exist') {
+                    showStyledPopupMessage('Cette adresse e-mail est déjà enregistrée.', false);
+                } else {
+                    showStyledPopupMessage('Une erreur est survenue lors de l\'enregistrement de l\'adresse e-mail.', false);
+                }
+            })
+            .catch(error => {
+                showStyledPopupMessage('Une erreur est survenue lors de l\'enregistrement de l\'adresse e-mail.', false);
+                console.error(error);
+            });
+        } else {
+            showStyledPopupMessage('Veuillez saisir une adresse e-mail.', false);
+        }
+    });
+}
+
+       </script>
+        <div id="notification">Produit ajouté au panier !</div>
+    </body>
+
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <link rel="shortcut icon" href="img/logo.png" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/logo.png">
+        <title>Les Graines Du Tropique</title>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" />
+
+        <link rel="stylesheet" href="style.css">
+    </head>
+
+    <body>
+
+      <section id="header">
+        <a href="#"> <img src="img/logo.png" class="logo" alt="logo" width="20%" height="5%"> </a>
+        <div>
+            <ul id="navbar">
+                <li><a href="index.html">Accueil</a></li>
+                <li><a href="shop.php">Boutique</a></li>
+                <li><a href="blog.php">Blog</a></li>
+                <li><a href="about.html">À&nbsppropos</a></li>
+                <li><a href="contact.html">Contact</a></li>
+                <li id="lg-bag"><a class="active" href="cart1.html"><i class="far fa-shopping-bag"></i></a></li>
+                <a href="#" id="close"><i class="far fa-times"></i></a>
+            </ul>
+        </div>
+        <div id="mobile">
+            <a href="cart1.html"><i class="far fa-shopping-bag"></i></a>
+            <i id="bar" class="fas fa-outdent"></i>
+        </div>
+
+    </section>
+
+
+        <section id="page-header" class="about-header">
+          <h2>#vos-commandes</h2>
+          <p> Lorem ipsum dolor sit amet consectetur adipisicing elit! </p>
+      </section>
+
+        <section id="cart" class="section-p1">
+            <table width="100%">
+                <thead>
+                    <tr>
+                        <td>Retirer</td>
+                        <td>Image</td>
+                        <td>Produit</td>
+                        <td>Prix</td>
+                        <td>Quantité</td>
+                        <td>Sous-Total</td>
+                    </tr>
+                </thead>
+                <tbody id="cartBody">
+                </tbody>
+            </table>
+        </section>
+
+
+
+
+        <section id="cart-add" class="section-p1">
+          <div id="coupon">
+              <h3>Appliquer un bon de réduction</h3>
+              <div>
+                  <input type="text" name="" id="" placeholder="Entrez le numéro du coupon">
+                  <button class="normal">Appliquer</button>
+              </div>
+          </div>
+          <div id="total">
+              <h3>Total du panier</h3>
+              <table>
+                  <!-- <tr>
+                      <td>Sous-total du panier</td>
+                      <td>$ 335</td>
+                  </tr>
+                  <tr>
+                      <td>livraison</td>
+                      <td>Gratuite</td>
+                  </tr>
+                  <tr> -->
+                      <td><strong>Total</strong></td>
+                      <td><strong id="totalAmount">0 FCFA</strong></td>
+                  </tr>
+              </table>
+              <button class="normal">Proceder au paiement</button>
+          </div>
+      </section>
+
+      <footer class="section-p1">
+        <div class="col">
+            <img class="logo" src="img/logo.png" alt="logo" width="10%">
+            <h4>Contact</h4>
+            <p><strong> Adresse : </strong> Agla Petit-Chateau, Rue Kangloè, Cotonou, Bénin </p>
+            <p><strong> Tél : </strong> (+229) 12 34 56 78 / (+229) 87 65 43 21 </p>
+            <p><strong> Heures : </strong> 10:00 - 18:00, Lundi - Samedi </p>
+            <div class="follow">
+                <h4>Nous Suivre</h4>
+                <div class="icon">
+                    <i class="fab fa-facebook-f"></i>
+                    <i class="fab fa-twitter"></i>
+                    <i class="fab fa-instagram"></i>
+                    <i class="fab fa-pinterest-p"></i>
+                    <i class="fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h4>A propos</h4>
+            <a href="about.html">Qui somme nous ?</a>
+            <a href="#">Informations de livraison</a>
+            <a href="#">Mention Légale</a>
+            <a href="#">Conditions Générales</a>
+            <a href="contact.html">Nous Contacter</a>
+        </div>
+        <div class="col">
+            <h4>Mon compte</h4>
+            <a href="admin/authentification.php">Se connecter</a>
+            <a href="cart1.html">Panier</a>
+            <a href="#">Suivre ma commande</a>
+            <a href="contact.html">Aide</a>
+        </div>
+        <div class="col install">
+            <h4>Télécharger l'application</h4>
+            <p>De Google Play ou d'App Store</p>
+            <div class="row">
+                <img src="img/pay/app.jpg" alt="">
+                <img src="img/pay/play.jpg" alt="">
+            </div>
+            <p>Terminal de paiement sécurisé</p>
+            <img src="img/pay/pay.png" alt="">
+        </div>
+        <div class="copyright">
+            <p> © 2023, Les Graines Du Tropiques, Tous droits résérvés </p>
+        </div>
+    </footer>
+
+
+
+
+        <script>
+
+document.addEventListener('DOMContentLoaded', () => {
+
+
+
+  function calculateSubtotal() {
+      // Retrieve the cart data from sessionStorage
+      const cartData = JSON.parse(sessionStorage.getItem('cartData'));
+
+      // Calculate the total amount by summing up the subtotals of all products
+      let totalAmount = 0;
+      if (cartData && cartData.length > 0) {
+        cartData.forEach((product) => {
+          totalAmount += parseFloat(product.subtotal); // Convert the subtotal to a numeric value
+        });
+      }
+
+      // Update the total amount in the DOM
+      const totalAmountElement = document.getElementById('totalAmount');
+      totalAmountElement.textContent =  `${totalAmount.toFixed(2)} FCFA`; // Show the total with two decimal places
+    }
+
+
+
+    // Function to update the cart total amount
+  function updateCartTotal() {
+    // Calculate the total amount and update the display
+    calculateSubtotal();
+  }
+
+
+
+
+    // Function to create a new row in the cart table with product details
+    function createTableRow(product, index) {
+      return `
+        <tr>
+          <td><a href="#"><i class="far fa-times-circle" data-index="${index}"></i></a></td>
+          <td><img src="${product.imageSrc}" alt=""></td>
+          <td>${product.title}</td>
+          <td>${product.price}</td>
+          <td><input type="number" name="" id="" value="${product.quantity}" disabled></td>
+          <td>${product.subtotal} FCFA</td> <!-- Display the subtotal -->
+        </tr>
+      `;
+    }
+
+
+
+
+// Function to refresh the cart data and update the total amount
+function refreshCartData() {
+                const cartData = JSON.parse(sessionStorage.getItem('cartData'));
+
+                // Check if there are any products in the cart
+                if (cartData && cartData.length > 0) {
+                    // Create a new row in the table for each product in the cart data
+                    const tableBody = document.querySelector('#cart tbody');
+                    let tableRows = '';
+                    cartData.forEach((product, index) => {
+                        tableRows += createTableRow(product, index);
+                    });
+
+                    // Append the rows to the table
+                    tableBody.innerHTML = tableRows;
+
+                    // Calculate the total amount and update the display
+                    calculateSubtotal();
+                } else {
+                    // If there are no products, clear the table and set the total to 0
+                    const tableBody = document.querySelector('#cart tbody');
+                    tableBody.innerHTML = '';
+                    const totalAmountElement = document.getElementById('totalAmount');
+                    totalAmountElement.textContent = '0 FCFA';
+                }
+            }
+
+
+
+
+
+    // Get the cart data from sessionStorage
+    const cartData = JSON.parse(sessionStorage.getItem('cartData'));
+
+    // Check if there are any products in the cart
+    if (cartData && cartData.length > 0) {
+      // Create a new row in the table for each product in the cart data
+      const tableBody = document.querySelector('#cart tbody');
+      let tableRows = '';
+      cartData.forEach((product, index) => {
+      tableRows += createTableRow(product, index);
+    });
+
+      // Append the rows to the table
+      tableBody.innerHTML = tableRows;
+
+
+// Calculate the total amount and update the display
+calculateSubtotal();
+
+    }
+ 
+
+
+
+
+
+
+
+
+   // Function to remove a product from the cart and update the display
+   function removeProduct(index) {
+    // Retrieve the cart data from sessionStorage
+    const cartData = JSON.parse(sessionStorage.getItem('cartData'));
+
+    // Remove the product at the specified index from the cart data array
+    const removedProduct = cartData.splice(index, 1)[0];
+
+    // Save the updated cart data in sessionStorage
+    sessionStorage.setItem('cartData', JSON.stringify(cartData));
+
+    // Update the display by removing the corresponding row from the table
+    const cartTableBody = document.querySelector('#cart table tbody');
+    const rows = cartTableBody.querySelectorAll('tr');
+    if (rows.length > index) {
+      cartTableBody.removeChild(rows[index]);
+    }
+    // Update the cart total amount after removing the product
+    updateCartTotal();
+  }
+
+  // Add a click event listener to the delete icon in each row
+  document.addEventListener('click', (event) => {
+    const deleteIcon = event.target;
+    if (deleteIcon.classList.contains('far', 'fa-times-circle')) {
+      // Get the index of the row to remove
+      const rowIndex = deleteIcon.dataset.index;
+
+      // Call the removeProduct function with the index to remove the product
+      removeProduct(rowIndex);
+      // Refresh the cart data and update the total amount after removing the product
+      refreshCartData();
+    }
+  });
+  });
+
+
+        </script>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
