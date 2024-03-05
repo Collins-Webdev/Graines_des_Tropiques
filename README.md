@@ -51,7 +51,7 @@ Feel free to contribute to the project by submitting pull requests or reporting 
 
 ## License
 
-This project is licensed under the [MIT License](LICENSE).
+This project is free to use and distribute without any restrictions.
 
 ## Contact
 
